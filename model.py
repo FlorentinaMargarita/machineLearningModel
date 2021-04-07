@@ -1,4 +1,5 @@
 from sklearn import linear_model
+import sklearn.metrics
 
 reg = linear_model.LinearRegression()
 
@@ -73,11 +74,15 @@ for pred in prediction:
     if pred > 0.5: answerArray.append(1)
     else: answerArray.append(0)
 
-residuals= []
 
-# minimum absolute deviation (deviation in this case being the residuals) method 
-for index in range(len(answerArray)):
-  # abs = absolute value, so that -1 and +1 doesn't cancel out. 
-  residuals.append(abs(ytest[index]-answerArray[index]))
+# the first argument is the answer, I know is correct. the second argument is the predicted one.
+# this r^2 that is coeffient of determination. 1 is perfect correlation between line and points. 0 is no correlatoin between line and points. 
+print(sklearn.metrics.r2_score(ytest, answerArray), "R2 METRIC")
 
-print(sum(residuals), len(answerArray))
+# The close to 0 the better. In this case the worst would be 1.
+print(sklearn.metrics.mean_squared_error(ytest, answerArray), "mean_squared_error")
+
+# this is the mean (average) absolute error. by mulitplying it with the length of the correct answers array, I get the total absolute error.
+print(sklearn.metrics.mean_absolute_error(ytest, answerArray)*len(ytest), "mean absolute error")
+
+# mean squared error is the same as mean absolute value because if there is an error it's either 0 or 1
