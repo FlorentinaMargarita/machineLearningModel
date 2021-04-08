@@ -1,10 +1,8 @@
 from sklearn import linear_model
 import sklearn.metrics
+from mlflow import log_metric, log_param, log_artifacts
 
 reg = linear_model.LinearRegression()
-
-# reg.fit: two arguments to reg.fit(). First one is a matrix: This represents all the input values. 
-# [0,0] are actually 
 
 f = open("data", "r")
 
@@ -27,6 +25,8 @@ for x in f:
 
 
 # fit is the learning, training part. this is were it learns all the data and runs the regression
+
+# reg.fit: two arguments to reg.fit(). First one is a matrix: This represents all the input values. 
 reg.fit(X,y)
 # coef tells us what kind of function it thinks is right. coeffient, because you multiply it with that.
 # here we print out the parameters (reg.coef_, reg.intercept_) of the model that it learnt with reg.fit()
@@ -75,14 +75,16 @@ for pred in prediction:
     else: answerArray.append(0)
 
 
+# log_param("param1", reg.coef_, reg.intercept_)
+
 # the first argument is the answer, I know is correct. the second argument is the predicted one.
 # this r^2 that is coeffient of determination. 1 is perfect correlation between line and points. 0 is no correlatoin between line and points. 
-print(sklearn.metrics.r2_score(ytest, answerArray), "R2 METRIC")
+log_metric("R2 METRIC", sklearn.metrics.r2_score(ytest, answerArray))
 
 # The close to 0 the better. In this case the worst would be 1.
-print(sklearn.metrics.mean_squared_error(ytest, answerArray), "mean_squared_error")
+log_metric("mean_squared_error", sklearn.metrics.mean_squared_error(ytest, answerArray))
 
 # this is the mean (average) absolute error. by mulitplying it with the length of the correct answers array, I get the total absolute error.
-print(sklearn.metrics.mean_absolute_error(ytest, answerArray)*len(ytest), "mean absolute error")
+log_metric("mean absolute error", sklearn.metrics.mean_absolute_error(ytest, answerArray)*len(ytest))
 
 # mean squared error is the same as mean absolute value because if there is an error it's either 0 or 1
