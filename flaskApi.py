@@ -15,7 +15,11 @@ def run_model():
         return "You're an intruder! BACK OFF!!!"
     
     else:  
-        answer = (float(temperature) * -0.00025155 + float(humidity) * -0.00016897 + 0.05235515*float(sound)) - 3.9363930971520107
+        answerValue = (float(temperature) * -0.00025155 + float(humidity) * -0.00016897 + 0.05235515*float(sound)) - 3.9363930971520107
+        problemStatus = 'no'
+
+        if answerValue > 0.5:
+            problemStatus = 'a huge'
+        answer = 'The value is %s so there is %s problem in the factory.' % (answerValue, problemStatus)
         return str(answer)
-    print(temperature)
 
