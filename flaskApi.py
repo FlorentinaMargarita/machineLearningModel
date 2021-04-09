@@ -3,12 +3,14 @@ from flask import request
 import logging
 
 app = Flask(__name__)
+logging.basicConfig(filename='factoryProblem.log', level=logging.DEBUG, format='{asctime} {message}', style='{')
+logger = logging.getLogger()
 
 @app.route('/')
 def run_model():
-    temperature = (request.args.get('temperature')) or 0
-    humidity = request.args.get('humidity') or 0
-    sound = request.args.get('sound') or 0
+    temperature = request.args.get('temperature')
+    humidity = request.args.get('humidity') 
+    sound = request.args.get('sound') 
     password = request.args.get('password')
 
     # These parameters used below were found when running the machine learning model.
@@ -16,6 +18,13 @@ def run_model():
         return "You're an intruder! BACK OFF!!!"
     
     else:  
+        if float(temperature) > 30:
+            logger.info('temperature is out of range')
+        if float(humidity) > 50:
+            logger.info('humidity is out of range')
+        if float(sound) > 100:
+            logger.info('sound is out of range')
+    
         answerValue = (float(temperature) * -0.00025155 + float(humidity) * -0.00016897 + 0.05235515*float(sound)) - 3.9363930971520107
         problemStatus = 'no'
 
@@ -26,10 +35,3 @@ def run_model():
 
 # it should write the numbers it gets to a file. We want to write surprising numbers. If one of the features are 5 and more out of range, 
 # of original ranges than it should write a line to this file
-logging.basicConfig(filename='factoryProblem.log', level=logging.DEBUG, format='{asctime}{message}', style='{')
-logger = logging.getLogger()
-logger.info(' This is just information')
-logger.debug(' This should be debugged')
-logger.warning(' This is a warning')
-logger.error(' This is an error')
-logger.critical(' This is really critical')
