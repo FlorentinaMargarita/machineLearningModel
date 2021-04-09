@@ -1,0 +1,15 @@
+artifact_uri: file:///home/florentina/machineLearning/mlruns/0/798f7dfdf9a341c7b497b19c5d9917fb/artifacts
+end_time: 1617925554494
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 798f7dfdf9a341c7b497b19c5d9917fb
+run_uuid: 798f7dfdf9a341c7b497b19c5d9917fb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1617925554449
+status: 3
+tags: []
+user_id: florentina

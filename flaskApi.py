@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+import logging
 
 app = Flask(__name__)
 
@@ -23,3 +24,8 @@ def run_model():
         answer = 'The value is %s so there is %s problem in the factory.' % (answerValue, problemStatus)
         return str(answer)
 
+# it should write the numbers it gets to a file. We want to write surprising numbers. If one of the features are 5 and more out of range, 
+# of original ranges than it should write a line to this file
+logging.basicConfig(filename='factoryProblem.log', encoding='utf-8', level=logging.DEBUG)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
