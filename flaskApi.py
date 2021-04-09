@@ -26,6 +26,10 @@ def run_model():
 
 # it should write the numbers it gets to a file. We want to write surprising numbers. If one of the features are 5 and more out of range, 
 # of original ranges than it should write a line to this file
-logging.basicConfig(filename='factoryProblem.log', encoding='utf-8', level=logging.DEBUG)
-logging.debug('This message should go to the log file')
-logging.info('So should this')
+logging.basicConfig(filename='factoryProblem.log', level=logging.DEBUG, format='{asctime}{message}', style='{')
+logger = logging.getLogger()
+logger.info(' This is just information')
+logger.debug(' This should be debugged')
+logger.warning(' This is a warning')
+logger.error(' This is an error')
+logger.critical(' This is really critical')

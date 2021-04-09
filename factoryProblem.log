@@ -1,4 +1,20 @@
-INFO:werkzeug: * Running on http://127.0.0.1:5001/ (Press CTRL+C to quit)
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 100-026-173
+This is just information
+This should be debugged
+This is a warning
+This is an error
+This is really critical
+This is just information
+This should be debugged
+This is a warning
+This is an error
+This is really critical
+This is just information
+This should be debugged
+This is a warning
+This is an error
+This is really critical
+2021-04-09 10:58:15,222This is just information
+2021-04-09 10:58:15,222This should be debugged
+2021-04-09 10:58:15,222This is a warning
+2021-04-09 10:58:15,222This is an error
+2021-04-09 10:58:15,222This is really critical
