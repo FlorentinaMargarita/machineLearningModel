@@ -79,7 +79,7 @@ with mlflow.start_run():
   answerArray = []
 
   # pred is one value in the test data set. Multiplied by the coefs and added intercepts. 
-  # (temperature * coef[0] + humanity * coef[1] + sound * coef[2]) + intercept = result is <0.5< . 
+  # (temperature * coef[0] + humidity * coef[1] + sound * coef[2]) + intercept = result is <0.5< . 
   # I don't round in case there is a number bigger than 1, that I will still get a result which is either 0 or 1 and 2.4 would round to 2. 
 
   for pred in prediction: 
@@ -92,9 +92,9 @@ with mlflow.start_run():
   # this r^2 that is coeffient of determination. 1 is perfect correlation between line and points. 0 is no correlatoin between line and points. 
   log_metric("R2 METRIC", sklearn.metrics.r2_score(ytest, answerArray))
   # The close to 0 the better. In this case the worst would be 1.
-  log_metric("mean_squared_error", sklearn.metrics.mean_squared_error(ytest, answerArray))
+  log_metric("mean squared error", sklearn.metrics.mean_squared_error(ytest, answerArray))
 
-  # this is the mean (average) absolute error. by mulitplying it with the length of the correct answers array, I get the total absolute error.
-  log_metric("mean absolute error", sklearn.metrics.mean_absolute_error(ytest, answerArray)*len(ytest))
+  # this is the mean (average) absolute error. (by mulitplying it with the length of the correct answers array, I would get the total absolute error.)
+  log_metric("mean absolute error", sklearn.metrics.mean_absolute_error(ytest, answerArray))
 
   # mean squared error is the same as mean absolute value because if there is an error it's either 0 or 1

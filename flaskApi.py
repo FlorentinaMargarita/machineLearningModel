@@ -13,7 +13,6 @@ def run_model():
     sound = request.args.get('sound') 
     password = request.args.get('password')
 
-    # These parameters used below were found when running the machine learning model.
     if password != 'secret':
         return "You're an intruder! BACK OFF!!!"
     
@@ -24,7 +23,8 @@ def run_model():
             logger.info('humidity is out of range')
         if float(sound) > 100:
             logger.info('sound is out of range')
-    
+            
+        # These parameters used below were found when running the machine learning model.
         answerValue = (float(temperature) * -0.00025155 + float(humidity) * -0.00016897 + 0.05235515*float(sound)) - 3.9363930971520107
         problemStatus = 'no'
 
