@@ -2,6 +2,12 @@ from sklearn import linear_model
 import sklearn.metrics
 from mlflow import log_metric, log_param, log_artifacts
 import mlflow.sklearn
+import mlflow
+
+# it tells mlflow that instead of sending its information directly to mlrun directory it will now send its information to the mlflow server 
+# (in this case my computer) 
+# so it tries to make an http connection to localhost 80 instead of directly writing to mlrunss
+mlflow.set_tracking_uri('http://localhost')
 
 # for autolog and ml log to run at the same time
 with mlflow.start_run(): 
