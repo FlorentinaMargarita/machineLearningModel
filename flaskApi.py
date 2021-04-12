@@ -17,6 +17,7 @@ def run_model():
         return "You're an intruder! BACK OFF!!!"
     
     else:  
+        # If one of the features are 5 and more out of range, of original ranges than it writes a line to the logfile "factoryProblem.log"
         if float(temperature) > 30:
             logger.info('temperature is out of range')
         if float(humidity) > 50:
@@ -33,5 +34,3 @@ def run_model():
         answer = 'The value is %s so there is %s problem in the factory.' % (answerValue, problemStatus)
         return str(answer)
 
-# it should write the numbers it gets to a file. We want to write surprising numbers. If one of the features are 5 and more out of range, 
-# of original ranges than it should write a line to this file
