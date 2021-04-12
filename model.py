@@ -4,12 +4,12 @@ from mlflow import log_metric, log_param, log_artifacts
 import mlflow.sklearn
 import mlflow
 
-#instead of sending its information directly to the MLrun directory, it will send its information to the MLflow server  
-# Thereby it tries to make an http connection to localhost 80 instead of directly writing to MLruns. In order for it to pass the NGiNX 
-# layer, the user needs to provide password and user name in the command.
+# Instead of sending its information directly to the MLrun directory, model.py will send its information to the MLflow server  
+# Thereby it tries to make an http connection to localhost 80 instead of directly writing to MLruns. In order for it to get through the NGINX 
+# security layer, the user needs to pass it a password and a user name.
 mlflow.set_tracking_uri('http://localhost')
 
-# "with" is there for autolog and ml log to run at the same time
+# "with" is there for autolog and log_metric to run at the same time
 with mlflow.start_run(): 
 
   mlflow.sklearn.autolog(exclusive=False)
@@ -31,10 +31,8 @@ with mlflow.start_run():
     s = int(s)
     p = int(p)
 
-
     X.append([t,h,s])
     y.append(p)
-
 
   # fit is the learning, training part. this is were it learns all the data and runs the regression
   reg.fit(X,y)
@@ -47,7 +45,6 @@ with mlflow.start_run():
 
   # here comes the test part
   # predict is a function using data from the test data file, which I also generated using generate.py>test.
-
   f = open("test", "r")
 
   # final matrix
@@ -57,7 +54,7 @@ with mlflow.start_run():
   for x in f:
   #  this will store each element of the array in one of those four variables
     t,h,s,p = x.split(" ")
-  #   fit wants integers so I convert it into integers
+  #   fit wants integers so I convert them into integers
     t = int(t)
     h = int(h)
     s = int(s)
@@ -68,8 +65,8 @@ with mlflow.start_run():
     ytest.append(p)
 
   # coef and intercept don't change anymore. They are set on what they are. 
-  # The sensor data is in XTEST and I give it to predict.
-  # Predict then predicts which of the data points are problems or not.
+  # The sensor data is in XTEST and I pass it to predict.
+  # Predict then predicts which of the data points are a problem or are not a problem.
   prediction = reg.predict(XTEST)
 
   # answerArray gets all real predictions
