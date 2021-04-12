@@ -4,9 +4,9 @@ This ML model computes whether there is a problem in a factory or not. It has 3 
 
 ## Commands (project run with WSL)
 
-* Running the command: “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SECRET  mlflow ui” will open the MLFlow Database on localhost:5000 
+* Open the MLflow Database on localhost:5000 : “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SECRET  mlflow ui”
 
-* The command “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SECRET python3 model.py” will run the model and log the metrics to mlflow
+* Run the model and log the metrics to MLflow: “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SECRET python3 model.py” 
 
 * Running the Flask API with the following command (running on Linux): 
 FLASK_DEBUG=1 FLASK_APP=flaskApi.py flask run --port=5001 
