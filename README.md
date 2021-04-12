@@ -7,3 +7,7 @@ Running the command: “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SE
 
 The command “MLFLOW_TRACKING_USERNAME=FLO MLFLOW_TRACKING_PASSWORD=SECRET python3 model.py” will run the model and log the metrics to mlflow
 
+Running the Flask API with the following command (running on Linux): 
+FLASK_DEBUG=1 FLASK_APP=flaskApi.py flask run --port=5001 
+
+
