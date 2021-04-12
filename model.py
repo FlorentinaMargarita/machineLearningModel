@@ -4,11 +4,12 @@ from mlflow import log_metric, log_param, log_artifacts
 import mlflow.sklearn
 import mlflow
 
-#instead of sending its information directly to mlrun directory it will send its information to the mlflow server  
-# so it tries to make an http connection to localhost 80 instead of directly writing to mlruns
+#instead of sending its information directly to the MLrun directory, it will send its information to the MLflow server  
+# Thereby it tries to make an http connection to localhost 80 instead of directly writing to MLruns. In order for it to pass the NGiNX 
+# layer, the user needs to provide password and user name in the command.
 mlflow.set_tracking_uri('http://localhost')
 
-# for autolog and ml log to run at the same time
+# "with" is there for autolog and ml log to run at the same time
 with mlflow.start_run(): 
 
   mlflow.sklearn.autolog(exclusive=False)
@@ -66,7 +67,7 @@ with mlflow.start_run():
     XTEST.append([t,h,s])
     ytest.append(p)
 
-  # coef and intercept doesn't change anymore. They are set on what they are. 
+  # coef and intercept don't change anymore. They are set on what they are. 
   # The sensor data is in XTEST and I give it to predict.
   # Predict then predicts which of the data points are problems or not.
   prediction = reg.predict(XTEST)
@@ -81,10 +82,9 @@ with mlflow.start_run():
       if pred > 0.5: answerArray.append(1)
       else: answerArray.append(0)
 
-  # log_param("param1", reg.coef_, reg.intercept_)
-
   # the first argument is the answer, I know is correct. the second argument is the predicted one.
-  # this r^2 that is coeffient of determination. 1 is perfect correlation between line and points. 0 is no correlatoin between line and points. 
+  # this r^2 that is coeffient of determination. 
+  # 1 is a perfect correlation between line and points. 0 means there is no correlation between line and points. 
   log_metric("R2 METRIC", sklearn.metrics.r2_score(ytest, answerArray))
   # The closer to 0 the better. In this case the worst would be 1.
   log_metric("mean squared error", sklearn.metrics.mean_squared_error(ytest, answerArray))

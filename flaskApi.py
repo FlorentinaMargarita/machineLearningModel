@@ -17,7 +17,7 @@ def run_model():
         return "You're an intruder! BACK OFF!!!"
     
     else:  
-        # If one of the features are 5 and more out of range, of original ranges than it writes a line to the logfile "factoryProblem.log"
+        # If one of the features is 5 or more out of range of the original ranges, then it writes to the logfile "factoryProblem.log"
         if float(temperature) > 30:
             logger.info('temperature is out of range')
         if float(humidity) > 50:
