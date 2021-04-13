@@ -9,9 +9,9 @@ import mlflow
 # security layer, the user needs to pass it a password and a user name.
 mlflow.set_tracking_uri('http://localhost')
 
-# "with" is there for autolog and log_metric to run at the same time
+# "with" is there for autolog and log_metric to log to the same run 
 with mlflow.start_run(): 
-
+  # Autolog logs only for the training data.
   mlflow.sklearn.autolog(exclusive=False)
 
   reg = linear_model.LinearRegression(fit_intercept=True)
@@ -36,15 +36,14 @@ with mlflow.start_run():
 
   # fit is the learning, training part. this is were it learns all the data and runs the regression
   reg.fit(X,y)
-  # coef tells us what kind of function it thinks is right. coeffient, because you multiply it with that.
+  # coef tells us what kind of function it thinks is right. coefficient, because you multiply it with that.
   # here it prints out the parameters (reg.coef_, reg.intercept_) of the model that it learnt with reg.fit()
   print(reg.coef_)
-  # intercept: This value is added to result (represent point where the function crosses the y-axis)
+  # intercept: This value is added to the result (represent point where the function crosses the y-axis)
   print(reg.intercept_)
 
 
   # here comes the test part
-  # predict is a function using data from the test data file, which I also generated using generate.py>test.
   f = open("test", "r")
 
   # final matrix
@@ -67,6 +66,7 @@ with mlflow.start_run():
   # coef and intercept don't change anymore. They are set on what they are. 
   # The sensor data is in XTEST and I pass it to predict.
   # Predict then predicts which of the data points are a problem or are not a problem.
+  # Prediction is an array. (One prediction per each row of the XTEST matrix.) 
   prediction = reg.predict(XTEST)
 
   # answerArray gets all real predictions
@@ -82,6 +82,7 @@ with mlflow.start_run():
   # the first argument is the answer, I know is correct. the second argument is the predicted one.
   # this r^2 that is coeffient of determination. 
   # 1 is a perfect correlation between line and points. 0 means there is no correlation between line and points. 
+  # log_metric is like a console.log to MLFlow
   log_metric("R2 METRIC", sklearn.metrics.r2_score(ytest, answerArray))
   # The closer to 0 the better. In this case the worst would be 1.
   log_metric("mean squared error", sklearn.metrics.mean_squared_error(ytest, answerArray))

@@ -18,12 +18,13 @@ def run_model():
     
     else:  
         # If one of the features is 5 or more out of range of the original ranges, then it writes to the logfile "factoryProblem.log"
-        if float(temperature) > 30:
+        if 10 > float(temperature) or float(temperature) > 30:
             logger.info('temperature is out of range')
-        if float(humidity) > 50:
+        if 15 > float(humidity) or float(humidity) > 50:
             logger.info('humidity is out of range')
-        if float(sound) > 100:
+        if 65 > float(sound) or float(sound) > 100:
             logger.info('sound is out of range')
+
             
         # These parameters used below were found when running the machine learning model.
         answerValue = (float(temperature) * -0.00025155 + float(humidity) * -0.00016897 + 0.05235515*float(sound)) - 3.9363930971520107
